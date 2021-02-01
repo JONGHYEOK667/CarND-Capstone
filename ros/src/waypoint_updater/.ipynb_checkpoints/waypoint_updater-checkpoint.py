@@ -82,7 +82,7 @@ class WaypointUpdater(object):
         lane = Lane()
         lane.header = self.base_waypoints.header
         lane.waypoints = self.base_waypoints.waypoints[closest_idx:closest_idx + LOOKAHEAD_WPS]
-        rospy.logwarn("waypoints: {0}".format(lane.waypoints))
+        rospy.logwarn("waypoints: {0}".format(lane.waypoints[0]))
         self.final_waypoints_pub.publish(lane)
         
 
