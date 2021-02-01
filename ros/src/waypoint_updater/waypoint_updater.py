@@ -28,6 +28,7 @@ LOOKAHEAD_WPS = 200 # Number of waypoints we will publish. You can change this n
 
 class WaypointUpdater(object):
     def __init__(self):
+
         rospy.init_node('waypoint_updater')
 
         rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb)
@@ -36,7 +37,7 @@ class WaypointUpdater(object):
         # TODO: Add a subscriber for /traffic_waypoint and /obstacle_waypoint below
 
 
-        self.final_waypoints_pub = rospy.Publisher('final_waypoints', Lane, queue_size=1)
+        self.final_waypoints_pub = rospy.Publisher('/final_waypoints', Lane, queue_size=1)
 
         # TODO: Add other member variables you need below
         self.pose = None
@@ -50,13 +51,15 @@ class WaypointUpdater(object):
         rate = rospy.Rate(50)
         while not rospy.is_shutdown():
             if self.pose and self.base_waypoints:
-              closest_waypoints_idx = self.get_closest_waypoint_idx()
+              closest_waypoint_idx = self.get_closest_waypoint_idx()
               self.publish_waypoints(closest_waypoint_idx)
             rate.sleep()
             
     def get_closest_waypoint_idx(self):
         x = self.pose.pose.position.x
+        rospy.logdebug("position x : {}".format(x))
         y = self.pose.pose.position.y
+        rospy.logdebug("position y : {}".format(y))
         closest_idx = self.waypoint_tree.query([x, y], 1)[1]
 
         # Check if closest is ahead or behind vehicle
@@ -72,10 +75,10 @@ class WaypointUpdater(object):
 
         if val > 0:
             closest_idx = (closest_idx + 1) % len(self.waypoints_2d)
-        # rospy.logwarn("closest_idx={}".format(closest_idx))
+            # rospy.logwarn("closest_idx={}".format(closest_idx))
         return closest_idx
     
-    def publish_waypoints(self):
+    def publish_waypoints(self, closest_idx):
         lane = Lane()
         lane.header = self.base_waypoints.header
         lane.waypoints = self.base_waypoints.waypoints[closest_idx:closest_idx + LOOKAHEAD_WPS]
