@@ -93,7 +93,7 @@ class WaypointUpdater(object):
         self.base_waypoints = waypoints
         rospy.logwarn("waypoints_cb: {0}".format(2))
         if not self.waypoints_2d:
-          rospy.logwarn("waypoints_cb_if: {0}".format(r))
+          rospy.logwarn("waypoints_cb_if: {0}".format(3))
           self.waypoints_2d = [[waypoint.pose.pose.position.x, waypoint.pose.pose.position.y] for waypoint in waypoints.waypoints]
           self.waypoint_tree = KDTree(self.waypoints_2d)
         pass
