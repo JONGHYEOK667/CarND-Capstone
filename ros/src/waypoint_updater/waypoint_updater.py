@@ -59,9 +59,9 @@ class WaypointUpdater(object):
             
     def get_closest_waypoint_idx(self):
         x = self.pose.pose.position.x
-        rospy.logdebug("position x : {}".format(x))
+        rospy.logwarn("Waypoint_updater: {0}".format(1))
         y = self.pose.pose.position.y
-        rospy.logdebug("position y : {}".format(y))
+        rospy.logwarn("Waypoint_updater: {0}".format(1))
         closest_idx = self.waypoint_tree.query([x, y], 1)[1]
 
         # Check if closest is ahead or behind vehicle
