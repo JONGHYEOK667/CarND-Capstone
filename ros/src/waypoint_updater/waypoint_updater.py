@@ -28,6 +28,8 @@ LOOKAHEAD_WPS = 200 # Number of waypoints we will publish. You can change this n
 
 class WaypointUpdater(object):
     def __init__(self):
+      
+        rospy.logwarn("Waypoint_updater: {0}".format(1))
 
         rospy.init_node('waypoint_updater')
 
