@@ -88,12 +88,15 @@ class WaypointUpdater(object):
         
 
     def pose_cb(self, msg):
+        rospy.logwarn("pose_cb: {0}".format(1))
         self.pose = msg
         pass
 
     def waypoints_cb(self, waypoints):
         self.base_waypoints = waypoints
         rospy.logwarn("waypoints_cb: {0}".format(2))
+        rospy.logwarn("base_waypoints: {0}".format(self.base_waypoints))
+        rospy.logwarn("waypoints: {0}".format(waypoints))
         if not self.waypoints_2d:
           rospy.logwarn("waypoints_cb_if: {0}".format(3))
           self.waypoints_2d = [[waypoint.pose.pose.position.x, waypoint.pose.pose.position.y] for waypoint in waypoints.waypoints]
