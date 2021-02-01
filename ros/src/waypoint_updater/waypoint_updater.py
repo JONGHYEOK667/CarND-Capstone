@@ -51,7 +51,9 @@ class WaypointUpdater(object):
 
     def loop(self):
         rate = rospy.Rate(50)
+        rospy.logwarn("loop: {0}".format(0))
         while not rospy.is_shutdown():
+            rospy.logwarn("loop_in: {0}".format(1))
             if self.pose and self.base_waypoints:
               closest_waypoint_idx = self.get_closest_waypoint_idx()
               self.publish_waypoints(closest_waypoint_idx)
@@ -91,7 +93,7 @@ class WaypointUpdater(object):
 
     def waypoints_cb(self, waypoints):
         self.base_waypoints = waypoints
-        rospy.logwarn("waypoints_cb: {0}".format(2))
+        rospy.logdebug("waypoints_cb: {0}".format(2))
         if not self.waypoints_2d:
           rospy.logwarn("waypoints_cb_if: {0}".format(3))
           self.waypoints_2d = [[waypoint.pose.pose.position.x, waypoint.pose.pose.position.y] for waypoint in waypoints.waypoints]
