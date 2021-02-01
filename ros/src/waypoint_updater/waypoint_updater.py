@@ -29,7 +29,6 @@ LOOKAHEAD_WPS = 200 # Number of waypoints we will publish. You can change this n
 class WaypointUpdater(object):
     def __init__(self):
       
-        rospy.logwarn("Waypoint_updater: {0}".format(1))
 
         rospy.init_node('waypoint_updater')
 
@@ -75,14 +74,14 @@ class WaypointUpdater(object):
 
         if val > 0:
             closest_idx = (closest_idx + 1) % len(self.waypoints_2d)
-            rospy.logwarn("closest_idx={}".format(closest_idx))
+            # rospy.logwarn("closest_idx={}".format(closest_idx))
         return closest_idx
     
     def publish_waypoints(self, closest_idx):
         lane = Lane()
         lane.header = self.base_waypoints.header
         lane.waypoints = self.base_waypoints.waypoints[closest_idx:closest_idx + LOOKAHEAD_WPS]
-        rospy.logwarn("waypoints: {0}".format(lane.waypoints[0]))
+        # rospy.logwarn("waypoints: {0}".format(lane.waypoints[0]))
         self.final_waypoints_pub.publish(lane)
         
 
