@@ -102,14 +102,6 @@ class WaypointUpdater(object):
             lane.waypoints = base_waypoints
         else:
             lane.waypoints = self.decelerate_waypoints(base_waypoints, closest_idx)
-        
-        if self.count == 40:
-          rospy.logwarn("stopline_wp_idx: {}".format(self.stopline_wp_idx))
-          self.count = 0
-          
-          
-        self.count +=1
-        
 
         return lane
       
@@ -147,8 +139,8 @@ class WaypointUpdater(object):
 
     def traffic_cb(self, msg):
         if self.stopline_wp_idx != msg.data:
-#             rospy.logwarn(
-#                 "LIGHT: new stopline_wp_idx={}, old stopline_wp_idx={}".format(msg.data, self.stopline_wp_idx))
+            rospy.logwarn(
+                "LIGHT: new stopline_wp_idx={}, old stopline_wp_idx={}".format(msg.data, self.stopline_wp_idx))
             self.stopline_wp_idx = msg.data
 
     
