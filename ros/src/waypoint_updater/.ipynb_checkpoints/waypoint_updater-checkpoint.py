@@ -104,7 +104,7 @@ class WaypointUpdater(object):
             lane.waypoints = self.decelerate_waypoints(base_waypoints, closest_idx)
         
         if self.count == 40:
-          rospy.logwarn("stopline_wp_idx : {}".format(self.stopline_wp_idx)
+          rospy.logwarn("stopline_wp_idx: {}".format(self.stopline_wp_idx))
           self.count = 0
           
           
