@@ -98,15 +98,6 @@ class TLDetector(object):
             self.upcoming_red_light_pub.publish(Int32(self.last_wp))
         self.state_count += 1
             
-            
-        else:
-            light_array = Light()
-            light_array.state = Int32(self.state)
-            light_array.waypoint = Int32(light_wp)  #self.last_wp)
-            self.upcoming_red_light_pub.publish(light_array)
-        
-  
-        self.state_count += 1
 
     def get_closest_waypoint(self, pose):
         """Identifies the closest path waypoint to the given position
