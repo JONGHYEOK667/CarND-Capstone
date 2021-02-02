@@ -132,7 +132,7 @@ class DBWNode(object):
         self.brake_pub.publish(bcmd)
         
         self.count += 1 
-        if self.count == 20:
+        if self.count == 40:
           rospy.logwarn("throttle : {:.2f}   /   brake : {:.2f}   /   steer : {:.2f}".format(throttle, brake, steer))
           self.count = 0
         
