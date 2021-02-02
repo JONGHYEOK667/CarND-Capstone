@@ -88,6 +88,7 @@ class TLDetector(object):
         if self.state != state:
             self.state_count = 0
             self.state = state
+            rospy.logwarn("State : {}   /   light Wp : {}".format(self.state, light_wp))
             
         elif self.state_count >= STATE_COUNT_THRESHOLD:
             self.last_state = self.state
@@ -111,8 +112,7 @@ class TLDetector(object):
             light_array.waypoint = Int32(light_wp)  #self.last_wp)
             self.upcoming_red_light_pub.publish(light_array)
         
-        rospy.logwarn("State : {}   /   Wp : {}   /   last_Wp : {}".format(self.state, self.last_wp, light_wp))
-        
+  
         self.state_count += 1
 
     def get_closest_waypoint(self, pose):
@@ -196,8 +196,6 @@ class TLDetector(object):
                     light = line_stop_pose
         if light:
             state = self.get_light_state(light)
-
-            rospy.logwarn("process_traffic_lights State: %d ... light waypoint: %d", state, light_wp)
 
             return light_wp, state
 
