@@ -147,8 +147,9 @@ class WaypointUpdater(object):
         if self.stopline_wp_idx != msg.data:
 #             rospy.logwarn(
 #                 "LIGHT: new stopline_wp_idx={}, old stopline_wp_idx={}".format(msg.data, self.stopline_wp_idx))
-#             self.stopline_wp_idx = msg.data
+            self.stopline_wp_idx = msg.data
 
+    
     def obstacle_cb(self, msg):
         # TODO: Callback for /obstacle_waypoint message. We will implement it later
         pass
