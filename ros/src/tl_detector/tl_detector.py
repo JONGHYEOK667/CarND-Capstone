@@ -23,7 +23,7 @@ class TLDetector(object):
         self.camera_image = None
         self.lights = []
         
-        rospy.loginfo("TLDetector Node: {}".format(1))
+        rospy.logiwarn("TLDetector Node: {}".format(1))
 
 
         config_string = rospy.get_param("/traffic_light_config")
@@ -102,7 +102,7 @@ class TLDetector(object):
             light_array.state = Int32(self.state)
             light_array.waypoint = Int32(light_wp)
 
-            rospy.loginfo("State: %d ... light waypoint: %d", self.state, light_wp)
+            rospy.logiwarn("State: %d ... light waypoint: %d", self.state, light_wp)
 
             self.upcoming_red_light_pub.publish(light_array)
         else:
@@ -110,7 +110,7 @@ class TLDetector(object):
             light_array.state = Int32(self.state)
             light_array.waypoint = Int32(light_wp)  #self.last_wp)
 
-            rospy.loginfo("State: %d ... last light waypoint: %d", self.state, self.last_wp)
+            rospy.logiwarn("State: %d ... last light waypoint: %d", self.state, self.last_wp)
 
             self.upcoming_red_light_pub.publish(light_array)
         self.state_count += 1

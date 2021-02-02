@@ -101,7 +101,7 @@ class DBWNode(object):
             rate.sleep()
             
     def dbw_enabled_cb(self, msg):
-      rospy.loginfo("dbw_enabled_cb: {0}".format(1))
+      rospy.logiwarn("dbw_enabled_cb: {0}".format(1))
       self.dbw_enabeled=msg
     
     def twist_cb(self, msg):
@@ -133,7 +133,7 @@ class DBWNode(object):
         
         self.count += 1 
         if self.count == 20:
-          rospy.loginfo("throttle : {:.2f}   /   brake : {:.2f}   /   steer : {:.2f}".format(throttle, brake, steer))
+          rospy.logiwarn("throttle : {:.2f}   /   brake : {:.2f}   /   steer : {:.2f}".format(throttle, brake, steer))
           self.count = 0
         
         
