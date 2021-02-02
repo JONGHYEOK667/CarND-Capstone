@@ -21,6 +21,7 @@ class TLDetector(object):
         self.pose = None
         self.waypoints = None
         self.camera_image = None
+        self.state_count = 0
         self.lights = []
         
         rospy.logwarn("TLDetector Node: {}".format(1))
@@ -88,22 +89,14 @@ class TLDetector(object):
         if self.state != state:
             self.state_count = 0
             self.state = state
-            rospy.logwarn("State : {}   /   light Wp : {}".format(self.state, light_wp))
-            
         elif self.state_count >= STATE_COUNT_THRESHOLD:
             self.last_state = self.state
-
-            if state == TrafficLight.RED or state == TrafficLight.YELLOW:
-                light_wp = light_wp
-            #else:
-            #    light_wp = -1
-
+            light_wp = light_wp if state == TrafficLight.RED else -1
             self.last_wp = light_wp
-
-            light_array = Light()
-            light_array.state = Int32(self.state)
-            light_array.waypoint = Int32(light_wp)
-            self.upcoming_red_light_pub.publish(light_array)
+            self.upcoming_red_light_pub.publish(Int32(light_wp))
+        else:
+            self.upcoming_red_light_pub.publish(Int32(self.last_wp))
+        self.state_count += 1
             
             
         else:
