@@ -53,6 +53,7 @@ class WaypointUpdater(object):
         self.base_lane = None
         self.waypoints_2d = None
         self.waypoint_tree = None
+        self.count = 0
 
         self.loop()
 
@@ -101,6 +102,13 @@ class WaypointUpdater(object):
             lane.waypoints = base_waypoints
         else:
             lane.waypoints = self.decelerate_waypoints(base_waypoints, closest_idx)
+        
+        if self.count%20 == 0:
+          rospy.logwarn("Wp : {}   /   Wp_LA : {}".format(self.base_lane.waypoints[0], self.base_lane.waypoints[-1]))
+          self.count = 0
+          
+          
+        self.count +=1
 
         return lane
       
@@ -114,19 +122,13 @@ class WaypointUpdater(object):
             # Distance includes a number of waypoints back so front of car stops at line
             stop_idx = max(self.stopline_wp_idx - closest_idx - STOP_LINE_MARGIN, 0)
             dist = self.distance(waypoints, i, stop_idx)
-            vel = math.sqrt(2 * MAX_DECEL * dist) + (i * CONSTANT_DECEL)
+            vel = math.sqrt(2 * MAX_DECEL * dist) 
             if vel < 1.0:
                 vel = 0.0
 
             p.twist.twist.linear.x = min(vel, wp.twist.twist.linear.x)
             temp.append(p)
-
-        self.decelerate_count += 1
-        if (self.decelerate_count % LOGGING_THROTTLE_FACTOR) == 0:
-            size = len(waypoints) - 1
-            vel_start = temp[0].twist.twist.linear.x
-            vel_end = temp[size].twist.twist.linear.x
-            rospy.logwarn("DECEL: vel[0]={:.2f}, vel[{}]={:.2f}".format(vel_start, size, vel_end))
+            
         return temp
         
 
