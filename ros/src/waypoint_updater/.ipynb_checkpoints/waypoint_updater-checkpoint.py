@@ -60,7 +60,9 @@ class WaypointUpdater(object):
     def loop(self):
         rospy.logwarn("loop_waypoint_updater: {0}".format(1))
         rate = rospy.Rate(PUBLISHING_RATE)
+        rospy.logwarn("loop")
         while not rospy.is_shutdown():
+            rospy.logwarn("loop_while")
             if self.pose and self.base_lane:
               rospy.logwarn("loop_while_if")
               closest_waypoint_idx = self.get_closest_waypoint_idx()
