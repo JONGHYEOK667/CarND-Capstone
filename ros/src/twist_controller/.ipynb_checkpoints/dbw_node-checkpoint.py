@@ -102,7 +102,6 @@ class DBWNode(object):
     def dbw_enabled_cb(self, msg):
       rospy.logwarn("dbw_enabled_cb: {0}".format(1))
       self.dbw_enabeled=msg
-      rospy.logwarn("dbw_enabeled: {0}".format(self.dbw_enabeled))
     
     def twist_cb(self, msg):
       self.linear_vel = msg.twist.linear.x
@@ -130,6 +129,8 @@ class DBWNode(object):
         bcmd.pedal_cmd_type = BrakeCmd.CMD_TORQUE
         bcmd.pedal_cmd = brake
         self.brake_pub.publish(bcmd)
+        
+        rospy.logwarn("throttle : {0}   /   brake : {1}   /   steer : {2}".format(throttle, breake, steer))
 
 
 if __name__ == '__main__':
