@@ -78,6 +78,7 @@ class DBWNode(object):
         self.linear_vel = None
         self.angular_vel = None
         self.throttle = self.steering = self.brake = 0
+        self.count = 0
         
 
         self.loop()
@@ -130,7 +131,12 @@ class DBWNode(object):
         bcmd.pedal_cmd = brake
         self.brake_pub.publish(bcmd)
         
-        rospy.loginfo("throttle : {:.2f}   /   brake : {:.2f}   /   steer : {:.2f}".format(throttle, brake, steer))
+        self.count += 1 
+        if self.count == 20:
+          rospy.loginfo("throttle : {:.2f}   /   brake : {:.2f}   /   steer : {:.2f}".format(throttle, brake, steer))
+          self.count = 0
+        
+        
 
 
 if __name__ == '__main__':
