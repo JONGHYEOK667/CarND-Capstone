@@ -23,7 +23,7 @@ class TLDetector(object):
         self.camera_image = None
         self.lights = []
         
-        rospy.logiwarn("TLDetector Node: {}".format(1))
+        rospy.logwarn("TLDetector Node: {}".format(1))
 
 
         config_string = rospy.get_param("/traffic_light_config")
