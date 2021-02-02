@@ -93,7 +93,6 @@ class WaypointUpdater(object):
         
     def generate_lane(self):
         lane = Lane()
-        rospy.logwarn("Wp : {}   /   Wp_LA : {}".format(self.base_lane.waypoints[0], self.base_lane.waypoints[-1]))
 
         closest_idx = self.get_closest_waypoint_idx()
         farthest_idx = closest_idx + LOOKAHEAD_WPS
@@ -105,11 +104,12 @@ class WaypointUpdater(object):
             lane.waypoints = self.decelerate_waypoints(base_waypoints, closest_idx)
         
         if self.count == 40:
-          rospy.logwarn("Wp : {}   /   Wp_LA : {}".format(self.base_lane.waypoints[0], self.base_lane.waypoints[-1]))
+          rospy.logwarn("stopline_wp_idx : {}".format(self.stopline_wp_idx)
           self.count = 0
           
           
         self.count +=1
+        
 
         return lane
       
