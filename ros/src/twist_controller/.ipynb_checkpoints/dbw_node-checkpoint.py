@@ -130,7 +130,7 @@ class DBWNode(object):
         bcmd.pedal_cmd = brake
         self.brake_pub.publish(bcmd)
         
-        rospy.logwarn("throttle : {0}   /   brake : {1}   /   steer : {2}".format(throttle, breake, steer))
+        rospy.logwarn("throttle : {0}   /   brake : {1}   /   steer : {2}".format(throttle, brake, steer))
 
 
 if __name__ == '__main__':
