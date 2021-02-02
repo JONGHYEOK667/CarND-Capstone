@@ -83,7 +83,7 @@ class DBWNode(object):
         self.loop()
 
     def loop(self):
-        rospy.logwarn("loop_dbw: {0}".format(1))
+        rospy.loginfo("loop_dbw: {0}".format(1))
         rate = rospy.Rate(50) # 50Hz
         while not rospy.is_shutdown():
             # TODO: Get predicted throttle, brake, and steering using `twist_controller`
@@ -100,7 +100,7 @@ class DBWNode(object):
             rate.sleep()
             
     def dbw_enabled_cb(self, msg):
-      rospy.logwarn("dbw_enabled_cb: {0}".format(1))
+      rospy.loginfo("dbw_enabled_cb: {0}".format(1))
       self.dbw_enabeled=msg
     
     def twist_cb(self, msg):
@@ -130,7 +130,7 @@ class DBWNode(object):
         bcmd.pedal_cmd = brake
         self.brake_pub.publish(bcmd)
         
-        rospy.logwarn("throttle : {:.2f}   /   brake : {:.2f}   /   steer : {:.2f}".format(throttle, brake, steer))
+        rospy.loginfo("throttle : {:.2f}   /   brake : {:.2f}   /   steer : {:.2f}".format(throttle, brake, steer))
 
 
 if __name__ == '__main__':
