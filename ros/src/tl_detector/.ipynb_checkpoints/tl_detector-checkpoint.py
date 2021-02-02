@@ -102,7 +102,7 @@ class TLDetector(object):
             light_array.state = Int32(self.state)
             light_array.waypoint = Int32(light_wp)
 
-            rospy.logiwarn("State: %d ... light waypoint: %d", self.state, light_wp)
+            rospy.logwarn("State: %d ... light waypoint: %d", self.state, light_wp)
 
             self.upcoming_red_light_pub.publish(light_array)
         else:
@@ -110,7 +110,7 @@ class TLDetector(object):
             light_array.state = Int32(self.state)
             light_array.waypoint = Int32(light_wp)  #self.last_wp)
 
-            rospy.logiwarn("State: %d ... last light waypoint: %d", self.state, self.last_wp)
+            rospy.logwarn("State: %d ... last light waypoint: %d", self.state, self.last_wp)
 
             self.upcoming_red_light_pub.publish(light_array)
         self.state_count += 1
