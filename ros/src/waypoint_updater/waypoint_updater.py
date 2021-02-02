@@ -103,7 +103,7 @@ class WaypointUpdater(object):
         else:
             lane.waypoints = self.decelerate_waypoints(base_waypoints, closest_idx)
         
-        if self.count%20 == 0:
+        if self.count == 40:
           rospy.logwarn("Wp : {}   /   Wp_LA : {}".format(self.base_lane.waypoints[0], self.base_lane.waypoints[-1]))
           self.count = 0
           
@@ -145,9 +145,9 @@ class WaypointUpdater(object):
 
     def traffic_cb(self, msg):
         if self.stopline_wp_idx != msg.data:
-            rospy.logwarn(
-                "LIGHT: new stopline_wp_idx={}, old stopline_wp_idx={}".format(msg.data, self.stopline_wp_idx))
-            self.stopline_wp_idx = msg.data
+#             rospy.logwarn(
+#                 "LIGHT: new stopline_wp_idx={}, old stopline_wp_idx={}".format(msg.data, self.stopline_wp_idx))
+#             self.stopline_wp_idx = msg.data
 
     def obstacle_cb(self, msg):
         # TODO: Callback for /obstacle_waypoint message. We will implement it later
