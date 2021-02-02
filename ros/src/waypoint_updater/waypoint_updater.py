@@ -62,6 +62,7 @@ class WaypointUpdater(object):
         rate = rospy.Rate(PUBLISHING_RATE)
         while not rospy.is_shutdown():
             if self.pose and self.base_lane:
+              rospy.logwarn("loop_while_if")
               closest_waypoint_idx = self.get_closest_waypoint_idx()
               self.publish_waypoints()
             rate.sleep()
@@ -88,11 +89,14 @@ class WaypointUpdater(object):
         return closest_idx
     
     def publish_waypoints(self):
+        rospy.logwarn("publish_waypoints")
         final_lane = self.generate_lane()
         self.final_waypoints_pub.publish(final_lane)
         
     def generate_lane(self):
         lane = Lane()
+        rospy.logwarn("generate_lane")
+#         rospy.logwarn("Wp : {}   /   Wp_LA : {}".format(self.base_lane.waypoints[0], self.base_lane.waypoints[-1]))
 
         closest_idx = self.get_closest_waypoint_idx()
         farthest_idx = closest_idx + LOOKAHEAD_WPS
